@@ -38,11 +38,11 @@
     color: #fff;
   }
   &.stage {
-    background: $buttonStage;
+    background: $buttonQA;
     color: #fff;
   }
   &.prod {
-    background: $buttonProd;
+    background: $buttonQA;
     color: #fff;
   }
 }

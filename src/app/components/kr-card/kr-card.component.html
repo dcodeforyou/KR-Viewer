@@ -11,22 +11,22 @@
   </div>
   <div class="center">
     <h3 class="title">
-      <a>{{ kr?.krCardNumber }}</a>
+      <a [href]="navigateRootUrl" 
+      target="_blank">{{ kr?.krCardNumber }}</a>
     </h3>
     <h5 class="description">
       {{ kr?.title }}
     </h5>
+    
+    <button class="date btn btn-state">
+        {{ kr?.date | date }}
+    </button>
+
+  </div>
+  <span class="comments-count">
     <p class="state">
       <button class="btn btn-state" [ngClass]="getClass()">
         {{ kr?.state }}
       </button>
     </p>
-    <button class="date btn btn-state">
-        {{ kr?.date }}
-    </button>
-
-  </div>
-  <span class="comments-count">
-    <span class="comment-icon"></span>
-    <strong class="count">{{ kr?.comments?.length }}</strong>
   </span>

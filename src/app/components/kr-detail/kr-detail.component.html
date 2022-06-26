@@ -19,7 +19,7 @@
         </p>
         <p class="date">
             <button class="btn btn-state">
-                {{ selectedKR?.card?.date }}
+                {{ selectedKR?.card?.date | date }}
             </button>
         </p>
     </div>
@@ -31,8 +31,7 @@
                         Description
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <p class="description">
-                    {{ selectedKR?.description }}
+                <p class="description" [innerHTML]="selectedKR?.description | markdown">
                 </p>
             </mat-expansion-panel>
         </mat-accordion>

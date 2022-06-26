@@ -1,38 +1,50 @@
 import { Action, createReducer, on } from "@ngrx/store";
 import { KRCardDetail } from "../models/card-detail.model";
-import { KRCard } from "../models/card.model";
+import { KRCard, KRDetailsList } from "../models/card.model";
 import { SelectOption } from "../models/data.model";
-import { StateEnum } from "../models/enums.model";
+import { RepoEnum, StateEnum } from "../models/enums.model";
 import * as KRActions from './kr-page.action';
 import * as KRAPIActions from './kr-api.action';
 
 export interface State {
+    krDetailsList: KRDetailsList | null;
     list: KRCard[];
     sortByOptions: SelectOption[];
     sortBySelectedOption: number;
     activeStates: StateEnum[];
     loading: boolean;
-    activeKR: KRCardDetail | null;
+    repoOptions: SelectOption[];
+    activeRepo: RepoEnum;
+    activeKRId: String;
+    contentLoaded: boolean;
 }
 
 export const initialState: State = {
+    krDetailsList: null,
     list: [],
     sortByOptions: [],
     sortBySelectedOption: 1,
     activeStates: [StateEnum.ALL],
     loading: false,
-    activeKR: null
+    repoOptions: [],
+    activeRepo: RepoEnum.CORE_UI,
+    activeKRId: '',
+    contentLoaded: false
 }
 
 export const KRReducers = createReducer(
     initialState,
     on(KRActions.enter, (state: State) => ({...state, loading: true})),
-    on(KRAPIActions.krListLoaded, (state: State, action) => ({...state, list: action.list})),
+    on(KRAPIActions.krDetailsListLoaded, (state: State, action) => ({...state, krDetailsList: action.detailsList, contentLoaded: true})),
     on(KRActions.getSortByOptionsSuccess, (state: State, action) => ({...state, sortByOptions: action.options})),
-    on(KRActions.cardCleared, (state:State) => ({...state, activeKR: null, loading: true})),
+    on(KRActions.getRepoOptionsSuccess, (state: State, action) => ({...state, repoOptions: action.options})),
+    on(KRActions.cardCleared, (state:State) => ({...state, activeKRId: '', loading: true})),
     on(KRActions.sortBySelected, (state: State, action) => 
     ({...state, sortBySelectedOption: action.value})),
-    on(KRAPIActions.getSelectedKR, (state: State, action) => ({...state, activeKR: action.krCardDetails})),
+    on(KRActions.repoSelected, (state: State, action) => 
+    ({...state, activeRepo: action.selectedRepo, activeKRId: ''})),
+    on(KRActions.repoSelected, (state: State, action) => ({...state, activeRepo: action.selectedRepo, activeKRId: ''})),
+    on(KRActions.cardSelectedId, (state: State, action) => ({...state, activeKRId: action.id})),
     on(KRActions.stateSelected, (state: State, action) => {
         // at least one state should be selected
         if(state.activeStates.length == 1 && state.activeStates[0] == action.selectedState) {

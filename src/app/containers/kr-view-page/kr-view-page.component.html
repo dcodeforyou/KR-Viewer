@@ -1,12 +1,16 @@
-<section class="d-flex kr-page">
-    <aside class="sidebar">
-        <app-state-filter></app-state-filter>
-    </aside>
-    <section class="main-column">
-        <app-filter [appName]="appName"></app-filter>
-        <app-kr-list [krList]="(krList$ | async)!" (selectedKR)="onSelectKR($event)"></app-kr-list>
+<div class="loader" *ngIf="!(loadingContent$ | async); else content"></div>
+
+<ng-template #content>
+    <section class="d-flex kr-page">
+        <aside class="sidebar">
+            <app-state-filter></app-state-filter>
+        </aside>
+        <section class="main-column">
+            <app-filter [appName]="appName"></app-filter>
+            <app-kr-list [krList]="(krList$ | async)!" (selectedKR)="onSelectKR($event)"></app-kr-list>
+        </section>
+        <section class="right-panel" [ngClass]="{ 'show': (isKRSelected$ | async), 'hide': !(isKRSelected$ | async)}" *ngIf="(isKRSelected$ | async)" >
+            <app-kr-detail [selectedKR]="(selectedKR$ | async)" (clearSelectedCard)="onClearKR()"></app-kr-detail>
+        </section>
     </section>
-    <section class="right-panel" *ngIf="isKRSelected">
-        <app-kr-detail [selectedKR]="(selectedKR$ | async)" (clearSelectedCard)="onClearKR()"></app-kr-detail>
-    </section>
-</section>
+</ng-template>

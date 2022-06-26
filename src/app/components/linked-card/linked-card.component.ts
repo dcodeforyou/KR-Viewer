@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { navigateRoot } from 'src/app/constants/constants';
 import { linkedCard } from 'src/app/models/card-detail.model';
 import { StateEnum } from 'src/app/models/enums.model';
 
@@ -10,11 +11,12 @@ import { StateEnum } from 'src/app/models/enums.model';
 export class LinkedCardComponent implements OnInit {
 
   @Input() card: linkedCard | undefined;
+  cardNavigateUrl = navigateRoot;
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log('****', this.card)
+    this.cardNavigateUrl += this.card?.cardNumber;
   }
 
   getClass() {

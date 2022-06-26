@@ -1,16 +1,23 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, of } from 'rxjs';
-import { krDetailMockJson, krListMockJson, sortByOptions } from '../mocks/kr-mock';
-import { linkedCard } from '../models/card-detail.model';
-import { KRCard } from '../models/card.model';
-import { StateEnum, stateValues } from '../models/enums.model';
+import { delay, map, Observable, of } from 'rxjs';
+import { krDetailMockJson, krListMockJson } from '../mocks/kr-mock';
+import { KRCardDetail, linkedCard } from '../models/card-detail.model';
+import { KRCard, KRDetailsList } from '../models/card.model';
+import { RepoEnum, StateEnum, stateValues } from '../models/enums.model';
+import { HttpClient } from '@angular/common/http';
+import { repoOptions, sortByOptions } from '../constants/constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class KrService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  getKRDetailsList() {
+    const url = 'http://localhost:4201/getKRList'; 
+    return this.http.get(url).pipe(delay(2000));
+  }
 
   getKRList() {
     return of(krListMockJson);
@@ -20,7 +27,11 @@ export class KrService {
     return of(sortByOptions);
   }
 
-  getSelectedKR(id: number) {
+  getRepoOptions() {
+    return of(repoOptions);
+  }
+
+  getSelectedKR(id: number, activeRepo?: RepoEnum) {
     const selectedKR = krDetailMockJson.find(kr => kr.card.id === id);
     return of(selectedKR);
   }
@@ -29,32 +40,31 @@ export class KrService {
     return Object.entries(StateEnum).find(([key, val]) => val === value)?.[0];
   }
 
-  updateKrStatus(list: KRCard[]) {
-    console.log('HERE');
+  updateKRDetailsList(detailsList: KRDetailsList) {
+    const listValues = Object.values(detailsList);
+    for(let value of listValues) {
+      this.updateKrStatus(value);
+    }
+    return of(detailsList);
+
+  }
+
+  updateKrStatus(list: KRCardDetail[]) {
+    
     list.forEach(kr => {
-      // this.getSelectedKR(kr.id).pipe(
-      //   map((selectedKR) => {
-      //     const isInvalid = selectedKR?.linkedKrCards.some((card) => card.state < kr.state);
-      //     kr.status = isInvalid ? false : true;
-      //     console.log('STATUSSSS:', kr.status);
-      //   })
-      // )
-      this.getSelectedKR(kr.id).subscribe((selectedKR) => {
-          const krEnum = this.getKeyName(kr.state);
+          const krEnum = this.getKeyName(kr.card.state);
           const krStatus: StateEnum = StateEnum[krEnum as keyof typeof StateEnum];
-          const isInvalid = selectedKR?.linkedKrCards.some((card) => {
+          const isInvalid = kr?.linkedKrCards.some((card) => {
             const cardEnum = this.getKeyName(card.state);
             if(krEnum && cardEnum){
               const cardStatus: StateEnum = StateEnum[cardEnum as keyof typeof StateEnum];
-              console.log('#######');
-              return (stateValues[cardStatus] < stateValues[krStatus]);
+              const isInvalidStatus = (stateValues[cardStatus] < stateValues[krStatus]);
+              return isInvalidStatus;
             }
             return true;
               
           });
-          kr.status = isInvalid ? false : true;
-        }
-      )
+          kr.card.status = isInvalid ? false : true;
     })
     return of(list);
   }

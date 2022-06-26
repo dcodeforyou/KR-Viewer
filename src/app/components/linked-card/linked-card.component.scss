@@ -5,7 +5,7 @@
     display: grid;
     padding: 0 20px;
     align-items: center;
-    grid-template-columns: [first] 104px [main] auto [last] 110px;
+    grid-template-columns: [first] 104px [main] auto [last] 150px;
     &:hover {
         .title a {
           color: $buttonFeedback;

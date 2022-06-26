@@ -1,14 +1,21 @@
 import { createAction, props } from "@ngrx/store";
 import { KRCard } from "../models/card.model";
 import { SelectOption } from "../models/data.model";
-import { StateEnum } from "../models/enums.model";
+import { RepoEnum, StateEnum } from "../models/enums.model";
 
-export const enter = createAction('[KR-View] enter')
+export const enter = createAction('[KR-View] enter');
 
-export const getSortByOptions = createAction('[Feedbacks] Get Sort By Options');
+export const getSortByOptions = createAction('[KR-View] Get Sort By Options');
+
+export const getRepoOptions = createAction('[KR-View] Get Repo Options');
 
 export const getSortByOptionsSuccess = createAction(
-    '[Feedbacks] Get Sort By Options Success', 
+    '[KR-View] Get Sort By Options Success', 
+    props<{options: SelectOption[]}>()
+);
+
+export const getRepoOptionsSuccess = createAction(
+    '[KR-View] Get Repo Options Success', 
     props<{options: SelectOption[]}>()
 );
 
@@ -22,9 +29,14 @@ export const stateSelected = createAction(
     props<{ selectedState: StateEnum }>()
 );
 
-export const cardSelected = createAction(
+export const repoSelected = createAction(
+    '[KR-View] Repo Selected',
+    props<{ selectedRepo: RepoEnum }>()
+);
+
+export const cardSelectedId = createAction(
     '[KR-View] Select card',
-    props<{ card: KRCard }>()
+    props<{ id: String }>()
 );
 
 export const cardCleared = createAction(

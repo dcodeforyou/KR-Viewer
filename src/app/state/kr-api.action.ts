@@ -1,7 +1,12 @@
 import { createAction, props } from "@ngrx/store";
 import { KRCardDetail } from "../models/card-detail.model";
-import { KRCard } from "../models/card.model";
+import { KRCard, KRDetailsList } from "../models/card.model";
 import { SelectOption } from "../models/data.model";
+
+export const krDetailsListLoaded = createAction(
+    '[KR API] KR Details List Success',
+    props<{ detailsList: KRDetailsList }>()
+);
 
 export const krListLoaded = createAction(
     '[KR API] KR List Success',
@@ -10,5 +15,5 @@ export const krListLoaded = createAction(
 
 export const getSelectedKR = createAction(
     '[KR API] Get Slected KR Success',
-    props<{ krCardDetails: KRCardDetail }>()
+    props<{ krCardDetailsId: String }>()
 );

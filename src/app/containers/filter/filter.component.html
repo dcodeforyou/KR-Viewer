@@ -4,6 +4,20 @@
             <h3>{{ appName }}</h3>
         </div>
     </div>
+
+    <div class="sort-by repo-name d-flex">
+        <span><i class="repo-icon"></i></span>
+        <ng-select
+          [(ngModel)]="repoValue"
+          [items]="repoOptions$ | async"
+          [clearable]="false"
+          bindLabel="label"
+          bindValue="value"
+          [searchable]="false"
+          (change)="repoSelected($event)"
+        ></ng-select>
+    </div>
+
     <div class="sort-by d-flex">
         <span>Sort by :</span>
         <ng-select

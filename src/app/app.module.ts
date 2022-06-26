@@ -24,6 +24,9 @@ import { LinkedCardComponent } from './components/linked-card/linked-card.compon
 import {MatExpansionModule} from '@angular/material/expansion';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { HttpClientModule } from '@angular/common/http';
+import { MarkdownPipe } from './pipes/markdown.pipe';
+import { DatePipe } from './pipes/date.pipe';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     KrListComponent,
     KrDetailComponent,
     KrCardComponent,
-    LinkedCardComponent
+    LinkedCardComponent,
+    MarkdownPipe,
+    DatePipe
   ],
   imports: [
     BrowserModule,
@@ -53,7 +58,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     CommonModule,
     MatExpansionModule,
     CdkAccordionModule,
-    MatTooltipModule
+    MatTooltipModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,7 +4,7 @@
 
 :host {
     display: grid;
-    grid-template-columns: [first] 104px [main] auto [last] 90px;
+    grid-template-columns: [first] 135px [main] auto [last] 200px;
   
 }
 
@@ -63,7 +63,6 @@
             background: url("../../styles/cross.svg") no-repeat;
             background-size: 14px;
             z-index: 10;
-            fill: orange;
           }
           
         }
@@ -110,7 +109,7 @@
   }
   
   .center {
-    padding: 18px 0 0 9px;
+    padding: 18px 0 18px 16px;
   }
   
   .title {

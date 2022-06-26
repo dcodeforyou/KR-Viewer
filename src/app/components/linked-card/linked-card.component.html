@@ -1,6 +1,6 @@
 <div class="center">
     <h3 class="title">
-      <a>{{ card?.cardNumber }}</a>
+      <a [href]="cardNavigateUrl" target="_blank">{{ card?.cardNumber }}</a>
     </h3>
     <p class="description"
     matTooltip="{{card?.title}}"

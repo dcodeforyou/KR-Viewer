@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/kr-viewer",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { delay, Observable } from 'rxjs';
 import { KRCardDetail } from 'src/app/models/card-detail.model';
 import { KRCard } from 'src/app/models/card.model';
-import { selectedKR, selectFilteredKRList, selectKRList, selectSortedKRList } from 'src/app/state/kr.selectors';
+import { selectedKR, selectFilteredKRList, selectKRList, selectSortedKRList, isKRSelected, selectContentLoading } from 'src/app/state/kr.selectors';
 import * as KRPageActions from '../../state/kr-page.action';
 
 @Component({
@@ -14,23 +14,26 @@ import * as KRPageActions from '../../state/kr-page.action';
 export class KrViewPageComponent implements OnInit {
 
   krList$: Observable<KRCard[]>;
-  selectedKR$: Observable<KRCardDetail | null>;
-  isKRSelected: boolean = false;
+  selectedKR$: Observable<KRCardDetail | null | undefined>;
+  isKRSelected$: Observable<boolean>;
   appName: string = 'KR-Viewer';
+  loadingContent$: Observable<boolean>;
 
   constructor(private store: Store) {
     this.krList$ = this.store.pipe(select(selectSortedKRList));
     this.selectedKR$ = this.store.pipe(select(selectedKR));
+    this.isKRSelected$ = this.store.pipe(select(isKRSelected));
+    this.loadingContent$ = this.store.pipe(select(selectContentLoading));
   }
 
   ngOnInit(): void {
     this.store.dispatch(KRPageActions.enter());
-    this.store.dispatch(KRPageActions.getSortByOptions())
+    this.store.dispatch(KRPageActions.getSortByOptions());
+    this.store.dispatch(KRPageActions.getRepoOptions());
   }
 
   onSelectKR(card: KRCard) {
-    this.store.dispatch(KRPageActions.cardSelected({card}));
-    this.isKRSelected = true;
+    this.store.dispatch(KRPageActions.cardSelectedId({id: card.id}));
     window.scroll({ 
       top: 0, 
       left: 0, 
@@ -40,7 +43,6 @@ export class KrViewPageComponent implements OnInit {
 
   onClearKR() {
     this.store.dispatch(KRPageActions.cardCleared());
-    this.isKRSelected = false;
   }
 
 }

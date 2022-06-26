@@ -2,8 +2,9 @@ import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { SelectOption } from 'src/app/models/data.model';
-import { sortBySelected } from 'src/app/state/kr-page.action';
-import { selectSortByOptions } from 'src/app/state/kr.selectors';
+import { RepoEnum } from 'src/app/models/enums.model';
+import { sortBySelected, repoSelected } from 'src/app/state/kr-page.action';
+import { selectSortByOptions, selectRepoOptions } from 'src/app/state/kr.selectors';
 
 @Component({
   selector: 'app-filter',
@@ -15,9 +16,13 @@ export class FilterComponent implements OnInit {
   @Input() appName: string = '';
   sortOptions$: Observable<SelectOption[]>;
   sortBySelect = 1;
+
+  repoOptions$: Observable<SelectOption[]>;
+  repoValue = 1;
   
   constructor(private store: Store) { 
     this.sortOptions$ = this.store.pipe(select(selectSortByOptions));
+    this.repoOptions$ = this.store.pipe(select(selectRepoOptions));
   }
 
   ngOnInit(): void {
@@ -27,8 +32,8 @@ export class FilterComponent implements OnInit {
     this.store.dispatch(sortBySelected({value: option.value}));
   }
 
-  logout() {
-    console.log('logout');
+  repoSelected(option: SelectOption) {
+    this.store.dispatch(repoSelected({selectedRepo: option.label.toLocaleLowerCase() as RepoEnum}))
   }
 
 }

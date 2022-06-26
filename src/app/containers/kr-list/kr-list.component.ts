@@ -13,7 +13,7 @@ import { selectedKRId } from 'src/app/state/kr.selectors';
 export class KrListComponent implements OnInit {
   @Input() krList: KRCard[] = [];
   @Output() selectedKR: EventEmitter<KRCard> = new EventEmitter<KRCard>();
-  selectedKRId$: Observable<number> | undefined;
+  selectedKRId$: Observable<String> | undefined;
 
   constructor(private store: Store, private krService: KrService) { 
     this.selectedKRId$ = this.store.select(selectedKRId);

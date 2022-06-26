@@ -4,25 +4,6 @@ export const currentUser = {
     "userName": "velvetround"
   }
 
-  export const sortByOptions = [
-    {
-      value: 1,
-      label: 'KR-Descending'
-    },
-    {
-      value: 2,
-      label: 'KR-Ascending'
-    },
-    {
-      value: 3,
-      label: 'Date Latest'
-    },
-    {
-      value: 4,
-      label: 'Date Created'
-    },
-  ]
-
   /**
    * id: number;
     krCardNumber: string;

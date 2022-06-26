@@ -12,7 +12,7 @@ import { cardCleared } from 'src/app/state/kr-page.action';
 export class KrDetailComponent implements OnInit {
 
   @Input()
-  selectedKR!: KRCardDetail | null;
+  selectedKR!: KRCardDetail | null | undefined;
 
   @Output() clearSelectedCard: EventEmitter<any> = new EventEmitter<any>();
 
@@ -21,8 +21,6 @@ export class KrDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
-    console.log(this.selectedKR?.linkedKrCards)
   }
 
   clearCard() {
