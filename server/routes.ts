@@ -4,6 +4,7 @@ import { getKRList } from './controller';
 
 
 export async function getAllKRs(req: Request, res: Response) {
-    const KRData = await getKRList();
+    const repo: any = req.query['repo'];
+    const KRData = await getKRList(repo);
     res.status(200).json({data: KRData});
 }

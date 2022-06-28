@@ -8,7 +8,7 @@
     grid-template-columns: [first] 104px [main] auto [last] 150px;
     &:hover {
         .title a {
-          color: $buttonFeedback;
+          color: var(--buttonFeedback);
           cursor: pointer;
         }
     }
@@ -20,6 +20,6 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
-      color: $primaryLight;
+      color: var(--primaryLight);
     }
 }

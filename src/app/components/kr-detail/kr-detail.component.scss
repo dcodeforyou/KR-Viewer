@@ -3,7 +3,7 @@
 }
 
 @import "/src/app/styles/icons";
-@import "/src/app/styles/variables";
+@import "/src/app/styles/css-vars";
 @import "/src/app/styles/buttons";
 
 .close-icon {
@@ -11,7 +11,7 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: $primaryLight;
+  background-color: var(--closeIconBackground);
   right: 20px;
   top: 18px;
   display: flex;
@@ -19,17 +19,17 @@
   justify-content: center;
   cursor: pointer;
   &:hover {
-    background-color: $btnUpvoteHover;
+    background-color: var(--btnUpvoteHover);
   }
 }
 
 p.title {
-  color: $primaryLight;
+  color: var(--primaryLight);
 }
 
 i {
   background: url("../../styles/cross.svg") no-repeat;
-  color: $primaryLight;
+  color: var(--primaryLight);
   background-size: 16px;
   width: 16px;
   height: 16px;
@@ -62,12 +62,12 @@ i {
 
 .description-container {
   mat-expansion-panel {
-    background: $greyLight;
+    background: var(--greyLight);
   }
   .description {
     max-height: 300px;
     overflow-y: auto;
-    color: $primaryDark;
+    color: var(--primaryDark);
   }
 }
 
@@ -86,7 +86,7 @@ i {
   max-height: 100vh;
   overflow-y: auto;
   .description-container {
-    background: $grey;
+    background: var(--grey);
     border-radius: 10px;
   }
 }
@@ -100,12 +100,12 @@ i {
 }
 
 .kr {
-  background: $cardBackground;
+  background: var(--cardBackground);
   margin-bottom: 20px;
   border-radius: 10px;
   &:hover {
     .title a {
-      color: $primaryHover;
+      color: var(--primaryHover);
     }
   }
 }
@@ -125,7 +125,7 @@ i {
     position: relative;
     cursor: pointer;
     border: 0;
-    background: $grey;
+    background: var(--grey);
     transition: all .2s;
     font-size: 13px;
     line-height: 19px;
@@ -142,7 +142,7 @@ i {
       top: 12px;
     }
     &:hover {
-      background: $btnUpvoteHover;
+      background: var(--btnUpvoteHover);
     }
   }
 }
@@ -168,7 +168,7 @@ h3 {
   display: flex;
   margin: 26px 0 0 12px;
   .count {
-    color: $primary;
+    color: var(--primary);
   }
 }
 

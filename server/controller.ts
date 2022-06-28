@@ -2326,11 +2326,12 @@ const repos = [
     'z'
 ];
 
-export const getKRList = async function () {
+export const getKRList = async function (repo: string) {
 
-    const allReposKRs: any = {};
+        console.log('REPO PARAM - BE; ', repo);
 
-    for(let i = 0; i < repos.length; i++) {
+        let repoKRs: any = {};
+
         let KRNumberList: String[] = ['KR-23344', 'KR-34455', 'KR-45566', 'KR-56677', 'KR-67788'];
 
         // const s3 = new AWS.S3({});
@@ -2352,15 +2353,52 @@ export const getKRList = async function () {
         const KRList = [];
 
         for (let i = 0; i < KRNumberList.length; i++) {
-            KRList.push(await getKRDetail(KRNumberList[i]));
+            KRList.push(await getKRDetail(KRNumberList[i], repo, i));
         }
+    
+        repoKRs[repo] = KRList;
+        console.log('data: ', repoKRs);
+        return repoKRs;
 
-        allReposKRs[`${repos[i]}`] = KRList;
-    }
-    return allReposKRs;
 }
 
-async function getKRDetail(kr: String) {
+
+
+// export const getKRList = async function (repo: any) {
+
+//     const allReposKRs: any = {};
+
+//     for(let i = 0; i < repos.length; i++) {
+//         let KRNumberList: String[] = ['KR-23344', 'KR-34455', 'KR-45566', 'KR-56677', 'KR-67788'];
+
+//         // const s3 = new AWS.S3({});
+
+//         // files.forEach(file => {
+//         //     const options = {
+//         //         Bucket: 'bucket-name',
+//         //         Key: file
+//         //     };
+
+//         //     s3.getObject(options, function(err, data) {
+//         //         if(!err) {
+//         //             if(Array.isArray(data))
+//         //                 KRNumberList = [...KRNumberList, ...data];
+//         //         }
+//         //     })
+//         // });
+
+//         const KRList = [];
+
+//         for (let i = 0; i < KRNumberList.length; i++) {
+//             KRList.push(await getKRDetail(KRNumberList[i]));
+//         }
+
+//         allReposKRs[`${repos[i]}`] = KRList;
+//     }
+//     return allReposKRs;
+// }
+
+async function getKRDetail(kr: String, repo?: string, i?: number) {
     // const dbKRDetail = await axios.get(`https://jira.cxloyalty.com/rest/api/2/issue/${kr}`);
 
     const dbKRDetail = KRDetail;
@@ -2381,8 +2419,8 @@ async function getKRDetail(kr: String) {
     let KRDetails = {
         card: {
             id: uuidv4(),
-            krCardNumber: dbKRDetail.key,
-            title: dbKRDetail.fields.summary,
+            krCardNumber: dbKRDetail.key + i,
+            title: dbKRDetail.fields.summary + " - " + repo + " - " + i,
             state: dbKRDetail.fields.status.name,
             date: dbKRDetail.fields.updated,
         },

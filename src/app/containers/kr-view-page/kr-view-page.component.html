@@ -1,12 +1,25 @@
 <div class="loader" *ngIf="!(loadingContent$ | async); else content"></div>
 
+<div class="theme-toggle-container" [hidden]="!(loadingContent$ | async)">
+  <input #themeCheckbox type="checkbox" id="theme-toggle" (click)="changeTheme()">
+  <label for="theme-toggle">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+</div>
+
 <ng-template #content>
+
     <section class="d-flex kr-page">
         <aside class="sidebar">
             <app-state-filter></app-state-filter>
         </aside>
         <section class="main-column">
-            <app-filter [appName]="appName"></app-filter>
+            <app-filter [appName]="appName" 
+            (selectedRepoValue)="setRepoValue($event)"  [repoValue]="repoValue"
+            (selectedSortByValue)="setSortByValue($event)" [sortBySelect]="sortBySelect"></app-filter>
             <app-kr-list [krList]="(krList$ | async)!" (selectedKR)="onSelectKR($event)"></app-kr-list>
         </section>
         <section class="right-panel" [ngClass]="{ 'show': (isKRSelected$ | async), 'hide': !(isKRSelected$ | async)}" *ngIf="(isKRSelected$ | async)" >

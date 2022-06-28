@@ -14,8 +14,13 @@ export class KrService {
 
   constructor(private http: HttpClient) { }
 
-  getKRDetailsList() {
-    const url = 'http://localhost:4201/getKRList'; 
+  // getKRDetailsList() {
+  //   const url = 'http://localhost:4201/getKRList'; 
+  //   return this.http.get(url).pipe(delay(2000));
+  // }
+
+  getKRDetailsList(selectedRepo?: RepoEnum) {
+    const url = `http://localhost:4201/getKRList?repo=${selectedRepo}`; 
     return this.http.get(url).pipe(delay(2000));
   }
 
@@ -50,8 +55,8 @@ export class KrService {
   }
 
   updateKrStatus(list: KRCardDetail[]) {
-    
     list.forEach(kr => {
+        if(typeof kr.card.status == 'undefined') {
           const krEnum = this.getKeyName(kr.card.state);
           const krStatus: StateEnum = StateEnum[krEnum as keyof typeof StateEnum];
           const isInvalid = kr?.linkedKrCards.some((card) => {
@@ -65,6 +70,7 @@ export class KrService {
               
           });
           kr.card.status = isInvalid ? false : true;
+        }
     })
     return of(list);
   }

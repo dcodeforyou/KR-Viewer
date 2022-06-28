@@ -1,4 +1,74 @@
-@import "/src/app/styles/variables";
+@import "/src/app/styles/css-vars";
+
+
+.theme-toggle-container {
+  position: fixed;
+  bottom: 20px;
+}
+
+#theme-toggle {
+  visibility: hidden;
+}
+
+#theme-toggle + label {
+  content: '';
+  display: inline-block;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+  margin: 10px;
+}
+
+#theme-toggle:not(:checked) + label {
+  margin: 20px;
+  background-color: transparent;
+  box-shadow: inset 3px -1px 1px 1px #fff,inset 8px -4px 4px 1px #fff;
+}
+
+
+
+#theme-toggle:checked + label {
+  --s:10px; /* length */
+  --o:5px; /* offset */
+  --w:3px; /* thickness */
+  --c:#ffac17;/* color */
+  background: #ffac17;
+  margin:calc(var(--s) + var(--o) + 10px);
+  width:30px;
+  height:30px;
+  display:inline-block;
+  border:.5px solid whitesmoke;
+  border-radius:50%;
+  position:relative;
+  box-shadow: 0 0 20px 20px #fae8c7;
+
+  span{
+    content:"";
+    position:absolute;
+    width:var(--w);
+    left:50%;
+    top:    calc(-1*var(--s) - var(--o));
+    bottom: calc(-1*var(--s) - var(--o));
+    border-radius:5px;
+    background:
+      linear-gradient(var(--c),var(--c)) top,
+      linear-gradient(var(--c),var(--c)) bottom;
+    background-size:100% var(--s);
+    background-repeat:no-repeat;
+    transform:translate(-50%) rotate(var(--r,0deg));
+  }
+  span:nth-child(2) { --r:45deg; }
+  span:nth-child(3) { --r:-45deg; }
+  span:nth-child(4) { --r:90deg; }
+}
+
+
+
+
+
+
 
 .kr-page {
   padding: 20px 0;
@@ -29,7 +99,7 @@
     // margin-right: 30px;
     border-right: 5px solid;
     padding-right: 30px;
-    border-image: linear-gradient(to bottom, $primary, $primaryLight) 0 1;;
+    border-image: linear-gradient(to bottom, var(--primary), var(--primaryLight)) 0 1;;
   }
   
 .right-panel {

@@ -1,4 +1,4 @@
-@import "./variables";
+@import "./css-vars";
 
 .btn {
   height: 44px;
@@ -11,16 +11,16 @@
   cursor: pointer;
   padding: 0 25px;
   display: block;
-  color: #fff;
+  color: var(--btnPrimaryFont);
 
 }
 
 .btn-purple {
-  color: #fff;
-  background: $buttonFeedback;
+  color: var(--btnPrimaryFont);
+  background: var(--buttonFeedback);
   transition: all .2s;
   &:hover {
-    background: $buttonFeedbackHover;
+    background: var(--buttonFeedbackHover);
   }
 }
 
@@ -31,57 +31,47 @@
   font-weight: 600;
   text-transform: capitalize;
   padding: 0 15px;
-  background: $buttonToggle;
-  color: $primaryLight;
+  background: var(--buttonToggle);
+  color: var(--primaryBtnText);
   &.qa {
-    background: $buttonQA;
-    color: #fff;
+    background: var(--buttonQA);
+    color: var(--btnPrimaryFont);
   }
   &.stage {
-    background: $buttonQA;
-    color: #fff;
+    background: var(--buttonQA);
+    color: var(--btnPrimaryFont);
   }
   &.prod {
-    background: $buttonQA;
-    color: #fff;
+    background: var(--buttonQA);
+    color: var(--btnPrimaryFont);
   }
 }
 
 .link {
-  color: $primaryHover;
+  color: var(--primaryHover);
   font-weight: 600;
   font-size: 13px;
   text-decoration: underline;
   transition: all .2s;
   &:hover {
-    color: $linkHover;
+    color: var(--linkHover);
   }
 }
 
 .btn-login {
-  color: $primary;
-  background: $greyLight;
-  border: 1px solid $btnUpvoteHover;
+  color: var(--primary);
+  background: var(--greyLight);
+  border: 1px solid var(--btnUpvoteHover);
   padding: 0;
   width: 44px;
   height: 44px;
   border-radius: 50%;
   transition: all .2s;
-  &.btn-google:hover {
-    background: #DB4437;
-    color: #fff;
-    border-color: #DB4437;
-  }
-  &.btn-twitter:hover {
-    background: #1DA1F2;
-    color: #fff;
-    border-color: #1DA1F2;
-  }
 }
 
 .btn-logout {
-  color: $primaryHover;
-  background: $greyLight;
+  color: var(--primaryHover);
+  background: var(--greyLight);
   transition: all .2s;
   opacity: .8;
   &:hover {

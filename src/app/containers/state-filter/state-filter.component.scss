@@ -1,7 +1,7 @@
-@import "/src/app/styles/variables";
+@import "/src/app/styles/css-vars";
 
 .states {
-    background: $cardBackground;
+    background: var(--cardBackground);
     border-radius: 10px;
     padding: 24px 24px 10px;
     margin-bottom: 24px;
@@ -14,20 +14,20 @@
       }
       .mat-button-toggle.mat-button-toggle-checked {
         border-radius: 10px;
-        background: $primary !important; 
+        background: var(--primary) !important; 
         color: #fff !important;
       }
       .mat-button-toggle + .mat-button-toggle {
         border: 0;
         border-radius: 10px;
-        background: $buttonToggle;
-        color: $primaryLight;
+        background: var(--stateBtnToggle);
+        color: var(--stateBtnText);
       }
     }
   }
 
   .mat-button-toggle-button {
-    background: $buttonToggle !important;
-    color: $primaryLight !important;
+    background: var(--stateBtnToggle) !important;
+    color: var(--primaryLight) !important;
   }
 

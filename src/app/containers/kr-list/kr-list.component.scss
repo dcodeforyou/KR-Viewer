@@ -1,5 +1,5 @@
 @import "/src/app/styles/icons";
-@import "/src/app/styles/variables";
+@import "/src/app/styles/css-vars";
 
 .list {
   list-style-type: none;
@@ -7,7 +7,7 @@
 }
 
 .kr {
-  background: $cardBackground;
+  background: var(--cardBackground);
   margin-bottom: 20px;
   border-radius: 10px;
   padding: 0 0 23px;
@@ -16,7 +16,7 @@
     cursor: pointer;
     box-shadow: rgba(234, 193, 242, 0.1) 0px 1px 2px 0px, rgba(234, 193, 242, 0.1) 0px 2px 6px 2px;
     .title a {
-      color: $primaryHover;
+      color: var(--primaryHover);
     }
   }
 }

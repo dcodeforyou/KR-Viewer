@@ -1,8 +1,9 @@
 @import '/src/app/styles/variables.scss';
 @import '/src/app/styles/buttons.scss';
+@import '/src/app/styles/css-vars.scss';
 
 .filter {
-  background: $primary;
+  background: var(--primary);
   border-radius: 10px;
   flex-flow: row nowrap;
   justify-content: space-between;
@@ -16,7 +17,7 @@
         display: block;
         width: 30px;
         height: 30px;
-        background-color: #fff;
+        background-color: var(--repoIconUrl);
         -webkit-mask-image: url("../../styles/repo.svg");
         mask-image: url("../../styles/repo.svg");
         mask-repeat: no-repeat;
@@ -27,6 +28,10 @@
     }
     
   }
+}
+
+::ng-deep .filter .sort-by-container .ng-select .ng-dropdown-panel {
+  margin-left: -145px;
 }
 
 ::ng-deep .repo-name .ng-select.ng-select-single .ng-select-container 
@@ -43,19 +48,9 @@ span {
   align-items: center;
 }
 
-.total-suggestion {
-  color: #fff;
-  flex-flow: row nowrap;
-  align-items: center;
-  margin-right: 38px;
-  svg {
-    margin-right: 16px;
-  }
-}
-
 .sort-by {
   flex-flow: row nowrap;
-  color: $grey;
+  color: var(--grey);
   align-items: center;
 }
 
@@ -69,7 +64,7 @@ span {
 
 .app-name {
   h3 {
-    color: $appName
+    color: var(--appName);
   }
 }
 

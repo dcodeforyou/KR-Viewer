@@ -23,7 +23,7 @@ export const initialState: State = {
     krDetailsList: null,
     list: [],
     sortByOptions: [],
-    sortBySelectedOption: 1,
+    sortBySelectedOption: 0,
     activeStates: [StateEnum.ALL],
     loading: false,
     repoOptions: [],
@@ -35,15 +35,30 @@ export const initialState: State = {
 export const KRReducers = createReducer(
     initialState,
     on(KRActions.enter, (state: State) => ({...state, loading: true})),
-    on(KRAPIActions.krDetailsListLoaded, (state: State, action) => ({...state, krDetailsList: action.detailsList, contentLoaded: true})),
+    // on(KRAPIActions.krDetailsListLoaded, (state: State, action) => ({...state, krDetailsList: action.detailsList, contentLoaded: true})),
+
+    on(KRAPIActions.krDetailsListLoaded, (state: State, action) => {
+        if(state.krDetailsList == null) {
+            return ({...state, krDetailsList: action.detailsList, contentLoaded: true});
+        }
+
+        if(state.krDetailsList && !(state.activeRepo in state.krDetailsList)) {
+            let krDetailsListUpdated = Object.assign({}, state.krDetailsList);
+            krDetailsListUpdated[state.activeRepo] = action.detailsList[state.activeRepo];
+            return ({...state, krDetailsList: krDetailsListUpdated, contentLoaded: true});
+        }
+
+        return  ({...state, contentLoaded: true});
+    }),
+
     on(KRActions.getSortByOptionsSuccess, (state: State, action) => ({...state, sortByOptions: action.options})),
     on(KRActions.getRepoOptionsSuccess, (state: State, action) => ({...state, repoOptions: action.options})),
     on(KRActions.cardCleared, (state:State) => ({...state, activeKRId: '', loading: true})),
     on(KRActions.sortBySelected, (state: State, action) => 
     ({...state, sortBySelectedOption: action.value})),
-    on(KRActions.repoSelected, (state: State, action) => 
-    ({...state, activeRepo: action.selectedRepo, activeKRId: ''})),
-    on(KRActions.repoSelected, (state: State, action) => ({...state, activeRepo: action.selectedRepo, activeKRId: ''})),
+    // on(KRActions.repoSelected, (state: State, action) => 
+    // ({...state, activeRepo: action.selectedRepo, activeKRId: ''})),
+    on(KRActions.repoSelected, (state: State, action) => ({...state, activeRepo: action.selectedRepo, activeKRId: '', contentLoaded: false})),
     on(KRActions.cardSelectedId, (state: State, action) => ({...state, activeKRId: action.id})),
     on(KRActions.stateSelected, (state: State, action) => {
         // at least one state should be selected

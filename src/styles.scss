@@ -3,7 +3,7 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
 @import 'app/styles/fonts';
 @import 'app/styles/icons';
-@import 'app/styles/variables';
+@import 'app/styles/css-vars.scss';
 
 * {
     font: 400 16px/23px 'Jost', sans-serif;
@@ -11,7 +11,7 @@
   
   a {
     text-decoration: none;
-    color: $primary;
+    color: var(--primary);
   }
   
   strong {
@@ -19,10 +19,11 @@
   }
   
   body {
-    background: #1F1B2C;
+    background: var(--homePrimary);
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
   }
   
   .d-flex {
@@ -51,10 +52,10 @@
             font-weight: 400;
             font-size: 16px;
             line-height: 23px;
-            color: $primaryLight;
+            color: var(--primaryLight);
             transition: all .2s;
             &:hover {
-              color: $buttonFeedback;
+              color: var(--buttonFeedback);
             }
           }
           &.ng-option-selected::after {
@@ -77,15 +78,15 @@
         transition: all .2s;
         margin: 0 14px 14px 0;
         padding: 0;
-        background: $buttonToggle;
-        color: $primaryLight;
+        background: var(--stateBtnToggle);
+        color: var(--primaryLight);
         border-radius: 10px;
         &.mat-button-toggle-checked {
           color: #fff;
-          background: $primaryHover;
+          background: var(--primaryHover);
         }
         &:hover {
-          background: $btnUpvoteHover;
+          background: var(--btnUpvoteHover);
         }
       }
       .mat-button-toggle-label-content {

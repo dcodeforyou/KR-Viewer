@@ -2,6 +2,7 @@ import { createAction, props } from "@ngrx/store";
 import { KRCardDetail } from "../models/card-detail.model";
 import { KRCard, KRDetailsList } from "../models/card.model";
 import { SelectOption } from "../models/data.model";
+import { RepoEnum } from "../models/enums.model";
 
 export const krDetailsListLoaded = createAction(
     '[KR API] KR Details List Success',

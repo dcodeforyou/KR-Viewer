@@ -4,6 +4,10 @@ export const navigateRoot = 'https://jira.cxloyalty.com/browse/';
 
 export const sortByOptions = [
     {
+      value: 0,
+      label: 'Deploy Order'
+    },
+    {
       value: 1,
       label: 'KR-Descending'
     },

@@ -54,24 +54,32 @@ export const selectSortBySelectedOption = createSelector(
 export const selectActiveRepoKRDetailsList = createSelector(
     selectKRDetailsList,
     selectActiveRepo,
-    (data: KRDetailsList | null, activeRepo: RepoEnum) =>  data ? data[activeRepo] : []
+    (data: KRDetailsList | null, activeRepo: RepoEnum) =>  {
+        console.log('*****');
+        console.log(data);
+
+        return data ? data[activeRepo] : []
+    }
 );
 
 export const selectKRList = createSelector(
     selectActiveRepoKRDetailsList,
     (detailsList: KRCardDetail[]) => {
         let list: KRCard[] = [];
-            list = detailsList.map(detail => {
-                let currKR: KRCard = {
-                    id: detail.card.id,
-                    krCardNumber: detail.card.krCardNumber,
-                    title: detail.card.title,
-                    state: detail.card.state,
-                    date: detail.card.date,
-                    status: detail.card.status
-                };
-                return currKR;
-            });
+            if(detailsList) {
+                list = detailsList.map(detail => {
+                    let currKR: KRCard = {
+                        id: detail.card.id,
+                        krCardNumber: detail.card.krCardNumber,
+                        title: detail.card.title,
+                        state: detail.card.state,
+                        date: detail.card.date,
+                        status: detail.card.status
+                    };
+                    return currKR;
+                });
+            }
+            
         return list;
     }
 );
@@ -90,12 +98,13 @@ export const selectSortedKRList = createSelector(
     selectFilteredKRList,
     selectSortBySelectedOption,
     (list: KRCard[], sortBy: number) => {
+        if(sortBy == 0) return list;
         return list.slice().sort((a, b) => {
             switch(sortBy) {
                 case 1:
                     return b.krCardNumber.localeCompare(a.krCardNumber);
                 case 2:
-                    return a.krCardNumber.localeCompare(b.krCardNumber);;
+                    return a.krCardNumber.localeCompare(b.krCardNumber);
                 case 3:
                     return b.date.localeCompare(a.date);
                 default:
